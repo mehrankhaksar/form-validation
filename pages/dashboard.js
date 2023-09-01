@@ -2,10 +2,10 @@ import React from "react";
 
 import { verifyToken } from "@/utils/auth";
 
+import connectDB from "@/utils/connectDB";
 import User from "@/models/User";
 
 import DashboardPage from "@/components/templates/DashboardPage";
-import connectDB from "@/utils/connectDB";
 
 function dashboard({ user }) {
   return (
