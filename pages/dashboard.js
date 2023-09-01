@@ -5,6 +5,7 @@ import { verifyToken } from "@/utils/auth";
 import User from "@/models/User";
 
 import DashboardPage from "@/components/templates/DashboardPage";
+import connectDB from "@/utils/connectDB";
 
 function dashboard({ user }) {
   return (
@@ -23,6 +24,12 @@ export async function getServerSideProps(context) {
   const secretKey = process.env.SECRET_KEY;
 
   const { email } = verifyToken(token, secretKey);
+
+  try {
+    await connectDB();
+  } catch (err) {
+    console.log(err);
+  }
 
   const user = await User.findOne({ email: email });
 

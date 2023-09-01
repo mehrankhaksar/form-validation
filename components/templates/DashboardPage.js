@@ -3,11 +3,13 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import { useFormik } from "formik";
+import { userInfoSchema } from "@/schemas/validations";
 
-import { Box, Typography, Button, Grid, Container } from "@mui/material";
+import { toast } from "react-toastify";
+
+import { Box, Typography, Button, Grid } from "@mui/material";
 
 import InputElement from "../elements/InputElement";
-import { userInfoSchema } from "@/schemas/validations";
 
 function DashboardPage({ email, currentFirstName, currentLastName }) {
   const [edit, setEdit] = React.useState(false);
@@ -15,13 +17,14 @@ function DashboardPage({ email, currentFirstName, currentLastName }) {
   const router = useRouter();
 
   const onSubmit = async (values) => {
-    console.log("Fuck");
     const res = await fetch("/api/user/update-user-info", {
       method: "POST",
       body: JSON.stringify(values),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
+
+    console.log(data);
 
     if (data.status === "success") {
       toast.success(data.message, {
@@ -57,6 +60,7 @@ function DashboardPage({ email, currentFirstName, currentLastName }) {
     handleChange,
     errors,
     handleSubmit,
+    isSubmitting,
   } = useFormik({
     initialValues: {
       firstName: currentFirstName || "",
@@ -171,6 +175,7 @@ function DashboardPage({ email, currentFirstName, currentLastName }) {
                       variant="contained"
                       color="success"
                       type="submit"
+                      disabled={isSubmitting}
                     >
                       Save
                     </Button>
