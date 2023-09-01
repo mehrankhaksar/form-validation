@@ -17,10 +17,7 @@ const signUpSchema = yup.object().shape({
 
 const signInSchema = yup.object().shape({
   email: yup.string().email("Please enter a valid email!").required("Required"),
-  password: yup
-    .string()
-    .matches(passwordRule, { message: "Please create stronger password!" })
-    .required("Required"),
+  password: yup.string().required("Required"),
 });
 
 const userInfoSchema = yup.object().shape({
