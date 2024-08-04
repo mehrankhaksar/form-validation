@@ -1,2 +1,2 @@
-# Next Form Validation with Formik & Yup
+# Form Validation
 ## https://form-validation-flax.vercel.app/
